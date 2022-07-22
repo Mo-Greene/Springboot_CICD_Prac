@@ -4,3 +4,10 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/drunken-wizard/ #프로젝트이름
+
+# 추가 설정
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
