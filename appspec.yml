@@ -7,7 +7,7 @@ files:
 
 # 추가 설정
 permissions:
-  - object: /
+  - object: /home/ubuntu/drunken-wizard/
     pattern: "**"
     owner: ubuntu
     group: ubuntu
