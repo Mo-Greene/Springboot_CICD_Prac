@@ -33,7 +33,7 @@ jobs:
       
 
       - name: Make zip file #1
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+        run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
 
       - name: Configure AWS credentials #2
@@ -47,7 +47,10 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://hanghae99-s3/$GITHUB_SHA.zip
 
       - name: Code Deploy #4
-        run: aws deploy create-deployment --application-name springboot-codedeploy
-          --deployment-config-name CodeDeployDefault.OneAtATime
+        run: aws deploy create-deployment
+          --application-name springboot-codedeploy
           --deployment-group-name springboot-codedeploy-group
-          --s3-location bucket=hanghae99-s3,bundleType=zip,key=$GITHUB_SHA.zip
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --file-exists-behavior OVERWRITE
+          --s3-location bucket=hanghae99-s3,bundleType=zip,key=Springboot_CICD_Prac/$GITHUB_SHA.zip
+          --region ap-northeast-2
