@@ -10,11 +10,6 @@ name: SpringBoot with Gradle
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-permissions:
-  contents: read
 
 jobs:
   build:
@@ -22,16 +17,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v3
-      with:
-        java-version: 8.0
-        distribution: 'temurin'
+      - uses: actions/checkout@v3
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v3
+        with:
+          java-version: 8.0
+          distribution: 'temurin'
         
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       
-    - name: Build with Gradle
-      run: ./gradlew build
-      shell: bash
+      - name: Build with Gradle
+        run: ./gradlew build
+        shell: bash
+      
+
+      - name: Make zip file #1
+        run: zip -qq -r ./$GITHUB_SHA.zip .
+        shell: bash
+
+      - name: Configure AWS credentials #2
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3 #3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://everymohum/$GITHUB_SHA.zip
+
+      - name: Code Deploy #4
+        run: aws deploy create-deployment --application-name deploy-actions
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name qa
+          --s3-location bucket=everymohum,bundleType=zip,key=$GITHUB_SHA.zip
