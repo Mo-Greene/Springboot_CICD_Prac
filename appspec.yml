@@ -4,6 +4,7 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/drunken-wizard/deploy #프로젝트이름
+    overwrites: yes
 
 # 추가 설정
 permissions:

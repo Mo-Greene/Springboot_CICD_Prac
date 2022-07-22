@@ -1,4 +1,4 @@
-REPOSITORY=/home/ubuntu/drunken-wizard
+REPOSITORY=/home/ubuntu/drunken-wizard/deploy
 cd $REPOSITORY
 
 APP_NAME=drunken-wizard
