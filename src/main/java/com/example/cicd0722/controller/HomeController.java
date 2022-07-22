@@ -11,4 +11,8 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/github")
+    public String git() {
+        return null;
+    }
 }
