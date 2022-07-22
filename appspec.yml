@@ -3,15 +3,14 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/drunken-wizard/ #프로젝트이름
+    destination: /home/ubuntu/drunken-wizard/deploy #프로젝트이름
 
 # 추가 설정
 permissions:
-  - object: /home/ubuntu/drunken-wizard/
+  - object: /
     pattern: "**"
     owner: ubuntu
     group: ubuntu
-    mode: 755
 
 hook:
   Application:
