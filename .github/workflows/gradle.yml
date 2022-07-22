@@ -52,5 +52,5 @@ jobs:
           --deployment-group-name springboot-codedeploy-group
           --deployment-config-name CodeDeployDefault.OneAtATime
           --file-exists-behavior OVERWRITE
-          --s3-location bucket=hanghae99-s3,bundleType=zip,key=hanghae99-s3/$GITHUB_SHA.zip
+          --s3-location bucket=hanghae99-s3,bundleType=zip,key=$GITHUB_SHA.zip
           --region ap-northeast-2
