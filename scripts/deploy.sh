@@ -1,7 +1,7 @@
-REPOSITORY=/home/ubuntu/drunken-wizard/deploy
+REPOSITORY=/home/ubuntu/drunken-wizard
 cd $REPOSITORY
 
-APP_NAME=drunken-wizard
+APP_NAME=CiCd0722-0.0.1-SNAPSHOT.jar
 JAR_NAME=$(ls $REPOSITORY/ | grep '.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/$JAR_NAME
 
