@@ -44,10 +44,10 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Upload to S3 #3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://everymohum/$GITHUB_SHA.zip
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://hanghae99-s3/$GITHUB_SHA.zip
 
       - name: Code Deploy #4
-        run: aws deploy create-deployment --application-name deploy-actions
+        run: aws deploy create-deployment --application-name springboot-codedeploy
           --deployment-config-name CodeDeployDefault.OneAtATime
-          --deployment-group-name qa
-          --s3-location bucket=everymohum,bundleType=zip,key=$GITHUB_SHA.zip
+          --deployment-group-name springboot-codedeploy-group
+          --s3-location bucket=hanghae99-s3,bundleType=zip,key=$GITHUB_SHA.zip
